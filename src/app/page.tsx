@@ -1,21 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Countdown from '@/components/Countdown'
-
-/* ── Ornamento com losango central ── */
-function DiamondOrnament({ dark = false }: { dark?: boolean }) {
-  const color = dark ? 'rgba(255,255,255,0.25)' : '#D0C2B0'
-  const accent = dark ? 'rgba(212,175,122,0.8)' : '#B87040'
-  return (
-    <div className="flex items-center justify-center gap-4 my-8">
-      <div className="h-px flex-1 max-w-[72px]" style={{ backgroundColor: color }} />
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <rect x="7" y="0.5" width="9.2" height="9.2" rx="0.5" transform="rotate(45 7 7)" fill={accent} />
-      </svg>
-      <div className="h-px flex-1 max-w-[72px]" style={{ backgroundColor: color }} />
-    </div>
-  )
-}
+import WheatOrnament from '@/components/WheatOrnament'
 
 export default function HomePage() {
   return (
@@ -91,10 +77,10 @@ export default function HomePage() {
           até o grande dia
         </p>
         <Countdown />
-        <div className="mt-10">
-          <DiamondOrnament dark />
+        <div className="flex justify-center mt-10 opacity-40">
+          <WheatOrnament size="md" color="#D4AF7A" />
         </div>
-        <p className="font-serif text-xl italic font-light text-[#D4AF7A] mt-2">
+        <p className="font-serif text-xl italic font-light text-[#D4AF7A] mt-4">
           Uma promessa para a eternidade
         </p>
       </section>
@@ -184,7 +170,9 @@ export default function HomePage() {
       ════════════════════════════════════════════════ */}
       <section className="bg-[#EDE4D8] py-16 md:py-20 px-6 text-center">
         <div className="max-w-2xl mx-auto">
-          <div className="w-8 h-0.5 bg-[#B87040] mx-auto mb-8" />
+          <div className="flex justify-center mb-8" style={{ color: '#B87040', opacity: 0.6 }}>
+            <WheatOrnament size="lg" color="#B87040" />
+          </div>
           <p className="font-serif italic font-light text-[#1E1208]" style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.7rem)', lineHeight: 1.65 }}>
             &ldquo;O amor é paciente, o amor é bondoso. Não inveja, não se vangloria,
             não se orgulha.&rdquo;
@@ -192,6 +180,9 @@ export default function HomePage() {
           <p className="eyebrow text-[#B87040] mt-5 block" style={{ letterSpacing: '0.3em' }}>
             1 Coríntios 13:4
           </p>
+          <div className="flex justify-center mt-8" style={{ color: '#B87040', opacity: 0.4, transform: 'scaleX(-1)' }}>
+            <WheatOrnament size="md" color="#B87040" />
+          </div>
         </div>
       </section>
 

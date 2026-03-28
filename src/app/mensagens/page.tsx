@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { supabase, type RfMensagem } from '@/lib/supabase'
+import WheatOrnament from '@/components/WheatOrnament'
 
 export default function MensagensPage() {
   const [messages, setMessages] = useState<RfMensagem[]>([])
@@ -57,7 +58,9 @@ export default function MensagensPage() {
       <div className="page-header">
         <span className="eyebrow">Rafael &amp; Flávia</span>
         <h1 className="page-title mt-3">Mensagens aos noivos</h1>
-        <div className="divider" />
+        <div className="flex justify-center mt-5">
+          <WheatOrnament size="md" color="#B87040" />
+        </div>
         <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
           Deixe uma mensagem especial para o casal neste dia tão importante.
         </p>

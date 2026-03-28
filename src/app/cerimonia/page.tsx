@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageHeader from '@/components/PageHeader'
 
 export const metadata: Metadata = { title: 'Cerimônia | Rafael & Flávia' }
 
@@ -7,11 +8,7 @@ export default function CerimoniaPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="page-header">
-        <span className="eyebrow">Rafael &amp; Flávia</span>
-        <h1 className="page-title mt-3">Cerimônia</h1>
-        <div className="divider" />
-      </div>
+      <PageHeader title="Cerimônia" />
 
       <section className="px-6 py-14 md:py-20 max-w-lg mx-auto">
 

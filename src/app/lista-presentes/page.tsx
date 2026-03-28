@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageHeader from '@/components/PageHeader'
 
 export const metadata: Metadata = { title: 'Lista de Presentes | Rafael & Flávia' }
 
@@ -24,15 +25,10 @@ const categorias = [
 export default function ListaPresentes() {
   return (
     <div className="min-h-screen">
-      <div className="page-header">
-        <span className="eyebrow">Rafael &amp; Flávia</span>
-        <h1 className="page-title mt-3">Lista de presentes</h1>
-        <div className="divider" />
-        <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
-          A melhor forma de nos presentear é com sua presença.
-          Mas se quiser nos ajudar a construir nosso lar, ficamos muito gratos!
-        </p>
-      </div>
+      <PageHeader
+        title="Lista de presentes"
+        subtitle="A melhor forma de nos presentear é com sua presença. Mas se quiser nos ajudar a construir nosso lar, ficamos muito gratos!"
+      />
 
       <section className="px-6 pt-12 max-w-lg mx-auto">
 

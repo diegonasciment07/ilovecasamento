@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import PageHeader from '@/components/PageHeader'
 
 export const metadata: Metadata = { title: 'Nossa História | Rafael & Flávia' }
 
@@ -7,12 +8,7 @@ export default function NossaHistoriaPage() {
   return (
     <div className="min-h-screen">
 
-      {/* Cabeçalho */}
-      <div className="page-header">
-        <span className="eyebrow">Rafael &amp; Flávia</span>
-        <h1 className="page-title mt-3">Nossa história</h1>
-        <div className="divider" />
-      </div>
+      <PageHeader title="Nossa história" />
 
       {/* A história */}
       <section className="px-6 py-12 md:py-16 max-w-2xl mx-auto">

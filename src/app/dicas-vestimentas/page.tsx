@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import PageHeader from '@/components/PageHeader'
 
 export const metadata: Metadata = { title: 'Dicas de Vestimentas | Rafael & Flávia' }
 
@@ -13,14 +14,7 @@ const paletaConvidados = [
 export default function DicasVestimentasPage() {
   return (
     <div className="min-h-screen">
-      <div className="page-header">
-        <span className="eyebrow">Rafael &amp; Flávia</span>
-        <h1 className="page-title mt-3">Dicas de vestimentas</h1>
-        <div className="divider" />
-        <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
-          Preparamos orientações para que todos estejam em harmonia neste dia especial.
-        </p>
-      </div>
+      <PageHeader title="Dicas de vestimentas" subtitle="Preparamos orientações para que todos estejam em harmonia neste dia especial." />
 
       <div className="px-6 max-w-lg mx-auto">
 

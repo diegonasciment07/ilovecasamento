@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import WheatOrnament from '@/components/WheatOrnament'
 
 interface FormData {
   nome: string
@@ -73,7 +74,9 @@ export default function ConfirmarPresencaPage() {
       <div className="page-header">
         <span className="eyebrow">Rafael &amp; Flávia</span>
         <h1 className="page-title mt-3">Confirmação de presença</h1>
-        <div className="divider" />
+        <div className="flex justify-center mt-5">
+          <WheatOrnament size="md" color="#B87040" />
+        </div>
         <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
           Confirme sua presença até <strong style={{ color: '#1E1208', fontWeight: 600 }}>10 de maio de 2026</strong>.
         </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageHeader from '@/components/PageHeader'
 
 export const metadata: Metadata = { title: 'Padrinhos | Rafael & Flávia' }
 
@@ -21,14 +22,7 @@ function PersonIcon() {
 export default function PadrinhosPage() {
   return (
     <div className="min-h-screen">
-      <div className="page-header">
-        <span className="eyebrow">Rafael &amp; Flávia</span>
-        <h1 className="page-title mt-3">Padrinhos</h1>
-        <div className="divider" />
-        <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
-          Pessoas especiais que escolhemos para caminhar ao nosso lado neste dia.
-        </p>
-      </div>
+      <PageHeader title="Padrinhos" subtitle="Pessoas especiais que escolhemos para caminhar ao nosso lado neste dia." />
 
       <section className="px-6 py-14 md:py-20 max-w-lg mx-auto">
         <div className="grid grid-cols-2 gap-6 md:gap-8">

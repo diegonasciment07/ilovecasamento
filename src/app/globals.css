@@ -188,6 +188,7 @@
   }
   .page-header .eyebrow { @apply mb-4 block; }
   .page-header h1 { @apply page-title; }
+  /* divider é renderizado via WheatOrnament no JSX — mantido como fallback */
   .page-header .divider {
     @apply mx-auto mt-6;
     width: 3rem;
