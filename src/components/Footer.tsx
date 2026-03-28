@@ -85,7 +85,7 @@ export default function Footer() {
       </div>
 
       {/* Voltar ao topo */}
-      <div className="py-7 text-center" style={{ borderBottom: '1px solid #D0C2B0', backgroundColor: '#F8F4EF' }}>
+      <div className="py-7 flex justify-center" style={{ borderBottom: '1px solid #D0C2B0', backgroundColor: '#F8F4EF' }}>
         <ScrollToTop />
       </div>
 
