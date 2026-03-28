@@ -38,47 +38,29 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Gradiente leve — só para criar profundidade, sem embaçar */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#120A02]/60 via-[#120A02]/10 to-transparent" />
+        {/* Gradiente multicamada */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#120A02]/80 via-[#120A02]/25 to-[#120A02]/10" />
 
-        {/* Conteúdo com efeito de vidro — alinhado à base */}
-        <div className="absolute inset-x-0 bottom-0">
-          <div
-            className="mx-4 md:mx-auto md:max-w-3xl mb-10 md:mb-14 px-8 md:px-14 py-8 md:py-10 text-center"
-            style={{
-              background: 'rgba(18, 10, 2, 0.42)',
-              backdropFilter: 'blur(18px)',
-              WebkitBackdropFilter: 'blur(18px)',
-              borderTop: '1px solid rgba(255,255,255,0.08)',
-              borderLeft: '1px solid rgba(255,255,255,0.06)',
-              borderRight: '1px solid rgba(255,255,255,0.06)',
-              borderBottom: '1px solid rgba(255,255,255,0.04)',
-            }}
-          >
-            {/* Data acima do nome */}
-            <p className="eyebrow-light tracking-[0.45em] mb-5 block">
-              17 de maio de 2026
+        {/* Conteúdo — alinhado à base */}
+        <div className="absolute inset-x-0 bottom-0 px-6 pb-14 md:pb-20 text-center">
+          <p className="eyebrow-light tracking-[0.45em] mb-6 block">
+            17 de maio de 2026
+          </p>
+          <h1 className="couple-name">
+            Rafael <span className="ampersand">&amp;</span> Flávia
+          </h1>
+          <div className="flex items-center justify-center gap-4 mt-7">
+            <div className="h-px w-10 bg-white/25" />
+            <p className="font-sans text-[11px] tracking-[0.3em] uppercase text-white/55 font-light">
+              Chácara Lagos Italy · São José dos Pinhais, PR
             </p>
-
-            {/* Nome do casal — hero visual */}
-            <h1 className="couple-name">
-              Rafael <span className="ampersand">&amp;</span> Flávia
-            </h1>
-
-            {/* Linha + local */}
-            <div className="flex items-center justify-center gap-4 mt-6">
-              <div className="h-px w-8 bg-white/30" />
-              <p className="font-sans text-[11px] tracking-[0.28em] uppercase text-white/60 font-light">
-                Chácara Lagos Italy · São José dos Pinhais, PR
-              </p>
-              <div className="h-px w-8 bg-white/30" />
-            </div>
+            <div className="h-px w-10 bg-white/25" />
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-white/25 animate-bounce">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/30 animate-bounce">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </div>
