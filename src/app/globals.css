@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #F8F4EF;
+    color: #1E1208;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a { text-decoration: none; }
+
+  ::selection {
+    background-color: #B87040;
+    color: white;
+  }
+}
+
+@layer components {
+
+  /* ══════════════════════════════════════
+     ASSINATURA DO CASAL — peça central
+  ══════════════════════════════════════ */
+  .couple-name {
+    @apply font-serif italic font-light tracking-tight text-white;
+    font-size: clamp(3.5rem, 11vw, 8.5rem);
+    line-height: 0.95;
+  }
+  .couple-name .ampersand {
+    @apply not-italic;
+    color: #D4AF7A;
+    font-size: 0.68em;
+    opacity: 0.9;
+    margin: 0 0.08em;
+  }
+
+  /* ══════════════════════════════════════
+     EYEBROW — label pequeno acima de títulos
+  ══════════════════════════════════════ */
+  .eyebrow {
+    @apply font-sans uppercase font-bold;
+    font-size: 0.6875rem;
+    letter-spacing: 0.38em;
+    color: #6B4F3A;
+  }
+  .eyebrow-light {
+    @apply font-sans uppercase font-bold;
+    font-size: 0.6875rem;
+    letter-spacing: 0.38em;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* ══════════════════════════════════════
+     TÍTULOS DE PÁGINA E SEÇÃO
+  ══════════════════════════════════════ */
+  .page-title {
+    @apply font-serif font-light italic;
+    color: #1E1208;
+    font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+    line-height: 1.1;
+  }
+
+  .section-title {
+    @apply font-serif font-light italic;
+    color: #1E1208;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  .section-title-light {
+    @apply font-serif font-light italic;
+    color: white;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  /* ══════════════════════════════════════
+     LABEL DE SEÇÃO
+  ══════════════════════════════════════ */
+  .section-label {
+    @apply font-sans uppercase font-bold;
+    font-size: 0.6875rem;
+    letter-spacing: 0.3em;
+    color: #4A3422;
+  }
+
+  /* ══════════════════════════════════════
+     CORPO DE TEXTO
+  ══════════════════════════════════════ */
+  .body-text {
+    @apply font-sans font-light;
+    color: #1E1208;
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+  .body-text-sm {
+    @apply font-sans font-light;
+    color: #4A3422;
+    font-size: 0.9rem;
+    line-height: 1.8;
+  }
+  .body-text-light {
+    @apply font-sans font-light;
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  /* ══════════════════════════════════════
+     BOTÕES
+  ══════════════════════════════════════ */
+  .btn-primary {
+    @apply font-sans font-bold uppercase text-white transition-all;
+    background-color: #B87040;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    padding: 1rem 2.25rem;
+    display: inline-block;
+    text-align: center;
+  }
+  .btn-primary:hover {
+    background-color: #8B5230;
+  }
+
+  .btn-outline {
+    @apply font-sans font-bold uppercase transition-all;
+    border: 1.5px solid #1E1208;
+    color: #1E1208;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    padding: 0.9rem 2.25rem;
+    display: inline-block;
+    text-align: center;
+  }
+  .btn-outline:hover {
+    background-color: #1E1208;
+    color: #F8F4EF;
+  }
+
+  .btn-ghost {
+    @apply font-sans font-bold uppercase transition-all;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: white;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    padding: 0.9rem 2.25rem;
+    display: inline-block;
+    text-align: center;
+  }
+  .btn-ghost:hover {
+    background-color: white;
+    color: #1E1208;
+    border-color: white;
+  }
+
+  /* ══════════════════════════════════════
+     INPUTS
+  ══════════════════════════════════════ */
+  .form-input {
+    @apply w-full font-sans font-light transition-colors;
+    border: 1.5px solid #D0C2B0;
+    background: transparent;
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+    color: #1E1208;
+    outline: none;
+  }
+  .form-input::placeholder { color: rgba(106, 79, 58, 0.45); }
+  .form-input:focus { border-color: #B87040; }
+
+  .form-label {
+    @apply block font-sans uppercase font-bold mb-2;
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    color: #4A3422;
+  }
+
+  /* ══════════════════════════════════════
+     CABEÇALHO DE PÁGINA INTERNO
+  ══════════════════════════════════════ */
+  .page-header {
+    @apply px-6 pt-14 pb-12 text-center;
+    border-bottom: 1px solid #D0C2B0;
+  }
+  .page-header .eyebrow { @apply mb-4 block; }
+  .page-header h1 { @apply page-title; }
+  .page-header .divider {
+    @apply mx-auto mt-6;
+    width: 3rem;
+    height: 2px;
+    background-color: #B87040;
+  }
+
+  /* ══════════════════════════════════════
+     VERSÍCULO / QUOTE
+  ══════════════════════════════════════ */
+  .verse-block {
+    @apply text-center;
+    margin: 4rem 0;
+    padding: 3rem 1.5rem;
+    border-top: 1px solid #D0C2B0;
+    border-bottom: 1px solid #D0C2B0;
+  }
+  .verse-text {
+    @apply font-serif italic font-light;
+    color: #1E1208;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    line-height: 1.7;
+  }
+  .verse-ref {
+    @apply eyebrow mt-4 block;
+    color: #B87040;
+    letter-spacing: 0.3em;
+  }
+
+  /* ══════════════════════════════════════
+     ORNAMENTO DECORATIVO
+  ══════════════════════════════════════ */
+  .ornament-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .ornament-line::before,
+  .ornament-line::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background-color: #D0C2B0;
+  }
+}
