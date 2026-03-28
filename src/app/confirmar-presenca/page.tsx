@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
 interface FormData {
   nome: string
@@ -17,10 +18,33 @@ export default function ConfirmarPresencaPage() {
     nome: '', presenca: '', adultos: 1, criancas: 0, email: '', telefone: '', mensagem: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    console.log('RSVP:', form)
+    if (!form.nome || !form.presenca) return
+
+    setSending(true)
+    setError(null)
+
+    const { error } = await supabase.from('rf_rsvp').insert({
+      nome:      form.nome,
+      presenca:  form.presenca,
+      adultos:   form.adultos,
+      criancas:  form.criancas,
+      email:     form.email   || null,
+      telefone:  form.telefone || null,
+      mensagem:  form.mensagem || null,
+    })
+
+    if (error) {
+      setError('Erro ao registrar sua resposta. Tente novamente.')
+      setSending(false)
+      return
+    }
+
+    setSending(false)
     setSubmitted(true)
   }
 
@@ -77,7 +101,10 @@ export default function ConfirmarPresencaPage() {
                   type="button"
                   onClick={() => setForm({ ...form, presenca: opcao })}
                   className="flex items-center gap-3 font-sans text-sm font-light transition-opacity"
-                  style={{ color: form.presenca === opcao ? '#1E1208' : '#6B4F3A', opacity: form.presenca && form.presenca !== opcao ? 0.5 : 1 }}
+                  style={{
+                    color: form.presenca === opcao ? '#1E1208' : '#6B4F3A',
+                    opacity: form.presenca && form.presenca !== opcao ? 0.5 : 1,
+                  }}
                 >
                   <div
                     className="w-4 h-4 rounded-full border-2 flex-shrink-0 transition-all"
@@ -96,7 +123,7 @@ export default function ConfirmarPresencaPage() {
             <div className="grid grid-cols-2 gap-4">
               {[
                 { label: 'Total de adultos', key: 'adultos' as const, options: [1,2,3,4,5] },
-                { label: 'Crianças', key: 'criancas' as const, options: [0,1,2,3,4] },
+                { label: 'Crianças',         key: 'criancas' as const, options: [0,1,2,3,4] },
               ].map((field) => (
                 <div key={field.key}>
                   <label className="form-label">{field.label}</label>
@@ -144,12 +171,18 @@ export default function ConfirmarPresencaPage() {
             />
           </div>
 
+          {error && (
+            <p className="font-sans text-sm text-center" style={{ color: '#B87040' }}>
+              {error}
+            </p>
+          )}
+
           <button
             type="submit"
-            disabled={!form.nome || !form.presenca}
+            disabled={!form.nome || !form.presenca || sending}
             className="btn-primary w-full disabled:opacity-30 disabled:cursor-not-allowed"
           >
-            Responder
+            {sending ? 'Registrando...' : 'Responder'}
           </button>
         </form>
       </section>
