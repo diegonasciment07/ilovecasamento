@@ -38,8 +38,15 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Gradiente multicamada */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#120A02]/80 via-[#120A02]/25 to-[#120A02]/10" />
+        {/* Vinhete radial — escurece bordas, realça o casal no centro */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 55% 65% at 50% 42%, transparent 0%, rgba(12,7,2,0.45) 60%, rgba(12,7,2,0.82) 100%)',
+          }}
+        />
+        {/* Gradiente base — escurece a base para o texto */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#120A02]/80 via-transparent to-transparent" />
 
         {/* Conteúdo — alinhado à base */}
         <div className="absolute inset-x-0 bottom-0 px-6 pb-14 md:pb-20 text-center">
