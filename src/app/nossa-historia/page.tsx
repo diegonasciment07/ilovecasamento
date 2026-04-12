@@ -108,7 +108,7 @@ export default function NossaHistoriaPage() {
         {/* Rafael */}
         <div className="mb-16">
           <div className="relative w-44 h-44 rounded-full mx-auto mb-6 overflow-hidden" style={{ boxShadow: '0 0 0 3px #D0C2B0' }}>
-            <Image src="/images/rafael-noivo.jpeg" alt="Rafael" fill className="object-cover" style={{ objectPosition: '50% 10%', transform: 'scale(1.3)', transformOrigin: '50% 10%' }} />
+            <Image src="/images/rafael-noivo.jpeg" alt="Rafael" fill className="object-cover" style={{ objectPosition: '50% 40%', transform: 'scale(2.2)', transformOrigin: '50% 40%' }} />
           </div>
           <h3 className="font-serif italic text-3xl font-light text-center mb-1" style={{ color: '#1E1208' }}>Rafael</h3>
           <p className="eyebrow text-center mb-8">24 anos</p>
