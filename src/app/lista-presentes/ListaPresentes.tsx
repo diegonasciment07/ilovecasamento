@@ -284,61 +284,66 @@ const icons: Record<string, ReactElement> = {
   ),
 }
 
+// ─── Helpers ────────────────────────────────────────────────────────────────
+function formatBRL(v: number) {
+  return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
+
 // ─── Data ───────────────────────────────────────────────────────────────────
-type Presente = { icon: string; nome: string; nota: string }
+type Presente = { icon: string; nome: string; nota: string; valor: number }
 type Categoria = { nome: string; itens: Presente[] }
 
 const categorias: Categoria[] = [
   {
     nome: 'Cozinha & Sabores',
     itens: [
-      { icon: 'cafe',      nome: 'Café pra Noiva',             nota: 'Combustível essencial do dia' },
-      { icon: 'avental',   nome: 'Avental do Chef',            nota: 'Para profetizar uma boa culinária' },
-      { icon: 'tabua',     nome: 'Tábua de Carne',             nota: 'Pro noivo mostrar seus dotes' },
-      { icon: 'sal',       nome: 'Sal Grosso',                 nota: 'Ingrediente sagrado da carne' },
-      { icon: 'chocolate', nome: 'Estoque de Chocolate',       nota: 'Alívio emergencial da TPM' },
-      { icon: 'almoco',    nome: 'Um Mês de Almoço',           nota: 'Garantido em casa, todo dia' },
-      { icon: 'bolo',      nome: 'Bolo de Chocolate Semanal',  nota: 'Exclusivo para a noiva' },
-      { icon: 'airfryer',  nome: 'Airfryer',                   nota: 'Para o famoso flanguinho' },
+      { icon: 'cafe',      nome: 'Café pra Noiva',             nota: 'Combustível essencial do dia',    valor: 80    },
+      { icon: 'avental',   nome: 'Avental do Chef',            nota: 'Para profetizar uma boa culinária', valor: 120 },
+      { icon: 'tabua',     nome: 'Tábua de Carne',             nota: 'Pro noivo mostrar seus dotes',    valor: 150   },
+      { icon: 'sal',       nome: 'Sal Grosso',                 nota: 'Ingrediente sagrado da carne',    valor: 50    },
+      { icon: 'chocolate', nome: 'Estoque de Chocolate',       nota: 'Alívio emergencial da TPM',       valor: 200   },
+      { icon: 'almoco',    nome: 'Um Mês de Almoço',           nota: 'Garantido em casa, todo dia',     valor: 800   },
+      { icon: 'bolo',      nome: 'Bolo de Chocolate Semanal',  nota: 'Exclusivo para a noiva',          valor: 400   },
+      { icon: 'airfryer',  nome: 'Airfryer',                   nota: 'Para o famoso flanguinho',        valor: 500   },
     ],
   },
   {
     nome: 'Fundo Especial',
     itens: [
-      { icon: 'cofrinho', nome: 'Cofrinho da TPM',          nota: 'Fundo emergencial garantido' },
-      { icon: 'vaquinha', nome: 'Vaquinha do Casamento',    nota: 'Cada centavo é amor' },
-      { icon: 'sofa',     nome: 'Sofá da Célula',           nota: 'Para a galera sentar em paz' },
-      { icon: 'tv',       nome: 'TV para The Chosen',       nota: 'Assistir juntos é sagrado' },
+      { icon: 'cofrinho', nome: 'Cofrinho da TPM',          nota: 'Fundo emergencial garantido',   valor: 300   },
+      { icon: 'vaquinha', nome: 'Vaquinha do Casamento',    nota: 'Cada centavo é amor',           valor: 200   },
+      { icon: 'sofa',     nome: 'Sofá da Célula',           nota: 'Para a galera sentar em paz',   valor: 2500  },
+      { icon: 'tv',       nome: 'TV para The Chosen',       nota: 'Assistir juntos é sagrado',     valor: 1800  },
     ],
   },
   {
     nome: 'Experiências',
     itens: [
-      { icon: 'spa',      nome: 'Vale SPA',                  nota: 'Para os noivos relaxarem' },
-      { icon: 'tesoura',  nome: 'Vale Corte de Cabelo',      nota: 'Pro noivo ficar apresentável' },
-      { icon: 'danca',    nome: 'Vale Dancinha Esquisita',   nota: 'Na festa, sem julgamentos' },
-      { icon: 'montanha', nome: 'Lua de Mel em Bariloche',   nota: 'O sonho deles' },
-      { icon: 'mala',     nome: 'Cota para a Viagem',        nota: 'Cada pouquinho conta muito' },
-      { icon: 'massagem', nome: 'Massagem para o Noivo',     nota: 'Após ver a conta do casamento' },
-      { icon: 'bebe',     nome: 'Máscara de Gás',            nota: 'Para o futuro filho do casal' },
-      { icon: 'academia', nome: 'Academia do Casal',         nota: 'Recuperação pós-festa' },
+      { icon: 'spa',      nome: 'Vale SPA',                  nota: 'Para os noivos relaxarem',          valor: 600  },
+      { icon: 'tesoura',  nome: 'Vale Corte de Cabelo',      nota: 'Pro noivo ficar apresentável',      valor: 80   },
+      { icon: 'danca',    nome: 'Vale Dancinha Esquisita',   nota: 'Na festa, sem julgamentos',         valor: 50   },
+      { icon: 'montanha', nome: 'Lua de Mel em Bariloche',   nota: 'O sonho deles',                     valor: 8000 },
+      { icon: 'mala',     nome: 'Cota para a Viagem',        nota: 'Cada pouquinho conta muito',        valor: 500  },
+      { icon: 'massagem', nome: 'Massagem para o Noivo',     nota: 'Após ver a conta do casamento',     valor: 250  },
+      { icon: 'bebe',     nome: 'Máscara de Gás',            nota: 'Para o futuro filho do casal',      valor: 150  },
+      { icon: 'academia', nome: 'Academia do Casal',         nota: 'Recuperação pós-festa',             valor: 1200 },
     ],
   },
   {
     nome: 'Lar Doce Lar',
     itens: [
-      { icon: 'cinema',     nome: 'Kit Cinema em Casa',       nota: 'Pipoca, manta e amor' },
-      { icon: 'controle',   nome: 'Kit Controles Remotos',    nota: 'Sem briga por canal' },
-      { icon: 'sabre',      nome: 'Sabres de Luz',            nota: 'Para resolver os conflitos' },
-      { icon: 'fusca',      nome: 'Um Fusca',                 nota: 'Pro noivo levar a noiva passear' },
-      { icon: 'casa',       nome: 'Uma Casa',                 nota: 'O lar deles' },
-      { icon: 'carro',      nome: 'Um Carro',                 nota: 'Para o dia a dia' },
-      { icon: 'lavanderia', nome: 'Máquina de Lavar',         nota: 'Vida prática garantida' },
-      { icon: 'geladeira',  nome: 'Geladeira',                nota: 'Para o chocolate não derreter' },
-      { icon: 'cama',       nome: 'Cama King',                nota: 'Conforto máximo' },
-      { icon: 'chave',      nome: '1 Ano de Aluguel',         nota: 'O presente dos presentes' },
-      { icon: 'gamepad',    nome: 'PS5',                      nota: 'Quando a noiva estiver no retiro' },
-      { icon: 'upgrade',    nome: 'Upgrade na Carreira',      nota: 'O maior investimento' },
+      { icon: 'cinema',     nome: 'Kit Cinema em Casa',       nota: 'Pipoca, manta e amor',              valor: 400  },
+      { icon: 'controle',   nome: 'Kit Controles Remotos',    nota: 'Sem briga por canal',               valor: 300  },
+      { icon: 'sabre',      nome: 'Sabres de Luz',            nota: 'Para resolver os conflitos',        valor: 350  },
+      { icon: 'fusca',      nome: 'Um Fusca',                 nota: 'Pro noivo levar a noiva passear',   valor: 5000 },
+      { icon: 'casa',       nome: 'Uma Casa',                 nota: 'O lar deles',                       valor: 10000},
+      { icon: 'carro',      nome: 'Um Carro',                 nota: 'Para o dia a dia',                  valor: 8000 },
+      { icon: 'lavanderia', nome: 'Máquina de Lavar',         nota: 'Vida prática garantida',            valor: 1500 },
+      { icon: 'geladeira',  nome: 'Geladeira',                nota: 'Para o chocolate não derreter',     valor: 2200 },
+      { icon: 'cama',       nome: 'Cama King',                nota: 'Conforto máximo',                   valor: 3500 },
+      { icon: 'chave',      nome: '1 Ano de Aluguel',         nota: 'O presente dos presentes',          valor: 9000 },
+      { icon: 'gamepad',    nome: 'PS5',                      nota: 'Quando a noiva estiver no retiro',  valor: 4500 },
+      { icon: 'upgrade',    nome: 'Upgrade na Carreira',      nota: 'O maior investimento',              valor: 1500 },
     ],
   },
 ]
@@ -390,8 +395,11 @@ function PixSheet({ presente, onClose }: { presente: Presente; onClose: () => vo
         <p className="font-sans font-bold uppercase mb-1" style={{ fontSize: '0.6rem', letterSpacing: '0.3em', color: '#B87040' }}>
           Você escolheu
         </p>
-        <p className="font-serif italic font-light mb-5" style={{ fontSize: '1.35rem', color: '#1E1208' }}>
+        <p className="font-serif italic font-light mb-1" style={{ fontSize: '1.35rem', color: '#1E1208' }}>
           {presente.nome}
+        </p>
+        <p className="font-sans font-bold mb-5" style={{ fontSize: '1rem', color: '#B87040' }}>
+          {formatBRL(presente.valor)}
         </p>
 
         <div style={{ height: '1px', backgroundColor: '#D0C2B0', marginBottom: '1.25rem' }} />
@@ -482,6 +490,9 @@ function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presen
         </p>
         <p className="font-sans font-light leading-tight" style={{ fontSize: '0.67rem', color: '#8B6B50' }}>
           {item.nota}
+        </p>
+        <p className="font-sans font-bold" style={{ fontSize: '0.8rem', color: '#B87040', marginTop: '0.35rem' }}>
+          {formatBRL(item.valor)}
         </p>
 
         {/* cta */}
