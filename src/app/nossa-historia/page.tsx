@@ -64,9 +64,9 @@ export default function NossaHistoriaPage() {
         {/* Versículo */}
         <div className="verse-block">
           <p className="verse-text">
-            &ldquo;Assim também os maridos devem amar as suas mulheres como ao próprios corpos.&rdquo;
+            &ldquo;Nem olhos viram, nem ouvidos ouviram, nem jamais penetrou em coração humano o que Deus tem preparado para aqueles que o amam.&rdquo;
           </p>
-          <span className="verse-ref">Efésios 5:28</span>
+          <span className="verse-ref">1 Coríntios 2:9</span>
         </div>
 
         <div className="space-y-6 body-text">
@@ -166,8 +166,9 @@ export default function NossaHistoriaPage() {
             </p>
             <blockquote className="pl-5 py-2 my-6" style={{ borderLeft: '3px solid #B87040' }}>
               <p className="font-serif italic font-light leading-relaxed" style={{ fontSize: '1.2rem', color: '#1E1208' }}>
-                &ldquo;Quando eu era prego, o diabo me batia. Agora eu sou martelo e bato nele todo dia.&rdquo;
+                &ldquo;Vós, maridos, amai vossas mulheres, como também Cristo amou a igreja, e a si mesmo se entregou por ela.&rdquo;
               </p>
+              <span className="verse-ref" style={{ display: 'block', marginTop: '0.5rem' }}>Efésios 5:25</span>
             </blockquote>
             <p>
               Sou decidida e ambiciosa. Sonho grande e busco excelência em tudo o que faço. Minha profissão

@@ -179,11 +179,11 @@ export default function HomePage() {
             <WheatOrnament size="lg" color="#B87040" />
           </div>
           <p className="font-serif italic font-light text-[#1E1208]" style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.7rem)', lineHeight: 1.65 }}>
-            &ldquo;O amor é paciente, o amor é bondoso. Não inveja, não se vangloria,
-            não se orgulha.&rdquo;
+            &ldquo;Vós, maridos, amai vossas mulheres, como também Cristo amou a igreja,
+            e a si mesmo se entregou por ela.&rdquo;
           </p>
           <p className="eyebrow text-[#B87040] mt-5 block" style={{ letterSpacing: '0.3em' }}>
-            1 Coríntios 13:4
+            Efésios 5:25
           </p>
           <div className="flex justify-center mt-8" style={{ color: '#B87040', opacity: 0.4, transform: 'scaleX(-1)' }}>
             <WheatOrnament size="md" color="#B87040" />
@@ -214,7 +214,7 @@ export default function HomePage() {
             <div className="h-px w-10 bg-white/20" />
           </div>
           <p className="body-text-light mb-10 max-w-sm mx-auto">
-            Confirme sua presença até <strong className="text-white font-normal">10 de maio</strong> e
+            Confirme sua presença até <strong className="text-white font-normal">13 de abril</strong> e
             ajude-nos a preparar tudo com carinho.
           </p>
           <Link href="/confirmar-presenca" className="btn-ghost">

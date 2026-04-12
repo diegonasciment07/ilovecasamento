@@ -78,7 +78,7 @@ export default function ConfirmarPresencaPage() {
           <WheatOrnament size="md" color="#B87040" />
         </div>
         <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
-          Confirme sua presença até <strong style={{ color: '#1E1208', fontWeight: 600 }}>10 de maio de 2026</strong>.
+          Confirme sua presença até <strong style={{ color: '#1E1208', fontWeight: 600 }}>13 de abril de 2026</strong>.
         </p>
       </div>
 

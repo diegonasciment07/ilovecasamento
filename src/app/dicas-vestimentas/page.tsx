@@ -4,7 +4,7 @@ import PageHeader from '@/components/PageHeader'
 
 export const metadata: Metadata = { title: 'Dicas de Vestimentas | Rafael & Flávia' }
 
-const paletaConvidados = [
+const paletaPadrinhos = [
   { hex: '#D8C4A8', nome: 'Champagne' },
   { hex: '#C9B49A', nome: 'Nude'      },
   { hex: '#E8DDD0', nome: 'Marfim'    },
@@ -57,9 +57,10 @@ export default function DicasVestimentasPage() {
 
           {/* Paleta de cores */}
           <div className="mb-10">
-            <p className="eyebrow block text-center mb-6" style={{ color: '#B87040' }}>Paleta permitida</p>
+            <p className="eyebrow block text-center mb-6" style={{ color: '#B87040' }}>Evitar cores da paleta</p>
+            <p className="body-text-sm text-center mb-6" style={{ color: '#6B5240' }}>Reservadas exclusivamente aos padrinhos e madrinhas</p>
             <div className="flex justify-center gap-5">
-              {paletaConvidados.map((cor) => (
+              {paletaPadrinhos.map((cor) => (
                 <div key={cor.nome} className="flex flex-col items-center gap-2.5">
                   <div
                     className="w-12 h-12"

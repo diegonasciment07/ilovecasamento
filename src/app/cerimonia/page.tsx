@@ -58,7 +58,7 @@ export default function CerimoniaPage() {
           {[
             { label: 'Cerimônia religiosa', text: 'Realizada no local — traje passeio completo' },
             { label: 'Recepção',            text: 'Logo após a cerimônia, no mesmo local' },
-            { label: 'Confirmação de presença', text: 'Até 10 de maio de 2026' },
+            { label: 'Confirmação de presença', text: 'Até 13 de abril de 2026' },
           ].map((item) => (
             <div key={item.label} className="flex flex-col md:flex-row md:items-baseline md:gap-6">
               <p className="section-label md:w-44 shrink-0 mb-1 md:mb-0">{item.label}</p>
