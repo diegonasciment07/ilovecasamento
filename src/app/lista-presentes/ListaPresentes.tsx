@@ -607,7 +607,7 @@ export default function ListaPresentes() {
     <div className="min-h-screen">
       <PageHeader
         title="Lista de presentes"
-        subtitle="A melhor forma de nos presentear é com sua presença. Mas se quiser nos ajudar a construir nosso lar, ficamos muito gratos!"
+        subtitle="Sua presença é muito esperada, seu presente vai nos ajudar a construir o nosso lar!"
       />
 
       <section className="px-6 md:px-10 pt-12 pb-4 max-w-6xl mx-auto">
