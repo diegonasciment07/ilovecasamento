@@ -1,0 +1,50 @@
+-- ══════════════════════════════════════════════════════════
+--  Rafael & Flávia — Migração inicial
+--  Rodar no SQL Editor do Supabase Dashboard
+-- ══════════════════════════════════════════════════════════
+
+-- ── Tabela: rf_mensagens ──────────────────────────────────
+create table if not exists rf_mensagens (
+  id         uuid        primary key default gen_random_uuid(),
+  nome       text        not null,
+  mensagem   text        not null,
+  created_at timestamptz not null default now()
+);
+
+alter table rf_mensagens enable row level security;
+
+-- Leitura pública (exibir no mural)
+create policy "rf_mensagens_select"
+  on rf_mensagens for select
+  using (true);
+
+-- Inserção pública (qualquer convidado pode escrever)
+create policy "rf_mensagens_insert"
+  on rf_mensagens for insert
+  with check (true);
+
+
+-- ── Tabela: rf_rsvp ──────────────────────────────────────
+create table if not exists rf_rsvp (
+  id         uuid        primary key default gen_random_uuid(),
+  nome       text        not null,
+  presenca   text        not null check (presenca in ('sim', 'nao')),
+  adultos    integer     not null default 1,
+  criancas   integer     not null default 0,
+  email      text,
+  telefone   text,
+  mensagem   text,
+  created_at timestamptz not null default now()
+);
+
+alter table rf_rsvp enable row level security;
+
+-- Inserção pública (convidado confirma presença)
+create policy "rf_rsvp_insert"
+  on rf_rsvp for insert
+  with check (true);
+
+-- Leitura pública apenas para contagem (rodapé)
+create policy "rf_rsvp_select"
+  on rf_rsvp for select
+  using (true);
