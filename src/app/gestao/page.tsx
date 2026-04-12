@@ -2,8 +2,6 @@
 import { useState, useEffect } from 'react'
 import { supabase, type RfRsvp, type RfMensagem } from '@/lib/supabase'
 
-const SENHA = 'rf2026'
-
 function formatBRL(v: number) {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 }
@@ -68,8 +66,10 @@ function Detalhe({ label, value }: { label: string; value?: string | number | nu
 
 export default function GestaoPage() {
   const [autenticado, setAutenticado] = useState(false)
+  const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-  const [erro, setErro] = useState(false)
+  const [erro, setErro] = useState<string | null>(null)
+  const [loginLoading, setLoginLoading] = useState(false)
   const [tab, setTab] = useState<Tab>('presencas')
   const [rsvps, setRsvps] = useState<RfRsvp[]>([])
   const [mensagens, setMensagens] = useState<RfMensagem[]>([])
@@ -78,10 +78,30 @@ export default function GestaoPage() {
   const [modalRsvp, setModalRsvp] = useState<RfRsvp | null>(null)
   const [modalMsg, setModalMsg] = useState<RfMensagem | null>(null)
 
-  function handleLogin(e: React.FormEvent) {
+  // Restaura sessão existente ao montar
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) setAutenticado(true)
+    })
+  }, [])
+
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
-    if (senha === SENHA) { setAutenticado(true); setErro(false) }
-    else setErro(true)
+    setLoginLoading(true)
+    setErro(null)
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password: senha })
+    if (error) {
+      setErro('Email ou senha incorretos')
+      setLoginLoading(false)
+      return
+    }
+    setAutenticado(true)
+    setLoginLoading(false)
+  }
+
+  async function handleLogout() {
+    await supabase.auth.signOut()
+    setAutenticado(false)
   }
 
   useEffect(() => {
@@ -124,14 +144,25 @@ export default function GestaoPage() {
           <p className="font-serif italic font-light text-center mb-2" style={{ fontSize: '1.5rem', color: '#D4AF7A' }}>Rafael &amp; Flávia</p>
           <p className="font-sans font-bold uppercase text-center mb-8" style={{ fontSize: '0.6rem', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.35)' }}>Área de Gestão</p>
           <form onSubmit={handleLogin} className="space-y-4">
-            <input type="password" value={senha} onChange={e => { setSenha(e.target.value); setErro(false) }}
-              placeholder="Senha" autoFocus
+            <input
+              type="email" value={email}
+              onChange={e => { setEmail(e.target.value); setErro(null) }}
+              placeholder="Email" autoFocus required
               className="w-full px-4 py-3 font-sans font-light text-sm outline-none"
-              style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: `1.5px solid ${erro ? '#B87040' : 'rgba(255,255,255,0.15)'}`, color: 'white' }} />
-            {erro && <p className="font-sans text-xs text-center" style={{ color: '#B87040' }}>Senha incorreta</p>}
-            <button type="submit" className="w-full py-3 font-sans font-bold uppercase transition-opacity hover:opacity-80"
+              style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: `1.5px solid ${erro ? '#B87040' : 'rgba(255,255,255,0.15)'}`, color: 'white' }}
+            />
+            <input
+              type="password" value={senha}
+              onChange={e => { setSenha(e.target.value); setErro(null) }}
+              placeholder="Senha" required
+              className="w-full px-4 py-3 font-sans font-light text-sm outline-none"
+              style={{ backgroundColor: 'rgba(255,255,255,0.06)', border: `1.5px solid ${erro ? '#B87040' : 'rgba(255,255,255,0.15)'}`, color: 'white' }}
+            />
+            {erro && <p className="font-sans text-xs text-center" style={{ color: '#B87040' }}>{erro}</p>}
+            <button type="submit" disabled={loginLoading}
+              className="w-full py-3 font-sans font-bold uppercase transition-opacity hover:opacity-80 disabled:opacity-50"
               style={{ backgroundColor: '#B87040', color: 'white', fontSize: '0.65rem', letterSpacing: '0.25em' }}>
-              Entrar
+              {loginLoading ? 'Entrando...' : 'Entrar'}
             </button>
           </form>
         </div>
@@ -150,7 +181,7 @@ export default function GestaoPage() {
           <p className="font-serif italic font-light" style={{ fontSize: '1.1rem', color: '#D4AF7A' }}>Rafael &amp; Flávia</p>
           <p className="font-sans font-bold uppercase mt-0.5" style={{ fontSize: '0.55rem', letterSpacing: '0.3em', color: 'rgba(255,255,255,0.35)' }}>Gestão · 17.05.2026</p>
         </div>
-        <button onClick={() => setAutenticado(false)} className="font-sans font-bold uppercase transition-opacity hover:opacity-60"
+        <button onClick={handleLogout} className="font-sans font-bold uppercase transition-opacity hover:opacity-60"
           style={{ fontSize: '0.55rem', letterSpacing: '0.25em', color: 'rgba(255,255,255,0.4)', background: 'none', border: 'none', cursor: 'pointer' }}>
           Sair
         </button>
