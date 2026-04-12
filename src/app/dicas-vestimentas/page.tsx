@@ -83,8 +83,6 @@ export default function DicasVestimentasPage() {
 
           {/* Paleta de cores das madrinhas */}
           <div className="mb-10">
-            <p className="eyebrow block text-center mb-2" style={{ color: '#B87040' }}>Paleta das madrinhas</p>
-            <p className="body-text-sm text-center mb-6" style={{ color: '#6B5240' }}>Reservada exclusivamente às madrinhas</p>
             <div className="flex justify-center gap-5">
               {paletaMadrinhas.map((cor) => (
                 <div key={cor.nome} className="flex flex-col items-center gap-2.5">
