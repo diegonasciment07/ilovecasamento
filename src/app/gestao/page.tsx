@@ -203,11 +203,10 @@ export default function GestaoPage() {
               style={{
                 fontSize: '0.6rem', letterSpacing: '0.2em',
                 color: tab === t.id ? '#B87040' : '#6B4F3A',
+                borderTop: 'none', borderLeft: 'none', borderRight: 'none',
                 borderBottom: tab === t.id ? '2px solid #B87040' : '2px solid transparent',
                 marginBottom: '-2px',
                 backgroundColor: 'transparent',
-                border: 'none',
-                borderBottom: tab === t.id ? '2px solid #B87040' : '2px solid transparent',
                 cursor: 'pointer',
               }}>
               {t.label} <span style={{ opacity: 0.6 }}>({t.count})</span>
@@ -242,8 +241,8 @@ export default function GestaoPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {rsvps.map(r => (
-                      <tr key={r.id} style={{ borderBottom: '1px solid #D0C2B0' }}>
+                    {rsvps.map((r, i) => (
+                      <tr key={r.id ?? i} style={{ borderBottom: '1px solid #D0C2B0' }}>
                         <td className="py-3 pr-4 font-sans text-sm font-light" style={{ color: '#1E1208', whiteSpace: 'nowrap' }}>{r.nome}</td>
                         <td className="py-3 pr-4">
                           <span className="font-sans font-bold uppercase"
