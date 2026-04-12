@@ -464,14 +464,13 @@ function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presen
     >
       {/* icon */}
       <div
-        className="flex items-center justify-center"
+        className="flex items-center justify-center h-[88px] md:h-[112px]"
         style={{
-          height: 88,
           background: 'linear-gradient(155deg, #F5ECE1 0%, #EAD9C6 100%)',
           boxShadow: 'inset 0 -1px 0 rgba(184,112,64,0.12)',
         }}
       >
-        <div style={{ width: 48, height: 48, filter: 'drop-shadow(0 2px 4px rgba(139,82,48,0.18))' }}>
+        <div className="w-[48px] h-[48px] md:w-[60px] md:h-[60px]" style={{ filter: 'drop-shadow(0 2px 4px rgba(139,82,48,0.18))' }}>
           {icons[item.icon]}
         </div>
       </div>
@@ -517,13 +516,13 @@ export default function ListaPresentes() {
         subtitle="A melhor forma de nos presentear é com sua presença. Mas se quiser nos ajudar a construir nosso lar, ficamos muito gratos!"
       />
 
-      <section className="px-6 pt-12 pb-4 max-w-lg mx-auto">
+      <section className="px-6 md:px-10 pt-12 pb-4 max-w-6xl mx-auto">
         {categorias.map((cat, i) => (
           <div key={cat.nome} className={i < categorias.length - 1 ? 'mb-14' : 'mb-6'}>
             <p className="section-label pb-3 mb-5" style={{ borderBottom: '2px solid #B87040' }}>
               {cat.nome}
             </p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
               {cat.itens.map((item) => (
                 <PresenteCard key={item.nome} item={item} onSelect={setSelecionado} />
               ))}
@@ -534,11 +533,11 @@ export default function ListaPresentes() {
 
       {/* PIX section */}
       <section
-        className="px-6 max-w-lg mx-auto text-center"
+        className="px-6 md:px-10 max-w-6xl mx-auto text-center"
         style={{ borderTop: '1px solid #D0C2B0', paddingTop: '3rem', paddingBottom: '4rem' }}
       >
         <p className="section-label mb-8">Ou contribua via PIX direto</p>
-        <div className="p-6" style={{ backgroundColor: '#EDE4D8', border: '1px solid #D0C2B0' }}>
+        <div className="p-6 md:max-w-md mx-auto" style={{ backgroundColor: '#EDE4D8', border: '1px solid #D0C2B0' }}>
           <p className="eyebrow block mb-3" style={{ color: '#6B4F3A' }}>Chave PIX — Flávia F. Souza</p>
           <div
             className="flex items-stretch overflow-hidden"
@@ -559,7 +558,7 @@ export default function ListaPresentes() {
       </section>
 
       {/* Versículo */}
-      <div className="px-6 max-w-lg mx-auto">
+      <div className="px-6 md:px-10 max-w-6xl mx-auto">
         <div className="verse-block">
           <p className="verse-text">&ldquo;Que cada dom perfeito vem do alto.&rdquo;</p>
           <span className="verse-ref">Tiago 1:17</span>
