@@ -464,13 +464,13 @@ function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presen
     >
       {/* icon */}
       <div
-        className="flex items-center justify-center h-[88px] md:h-[112px]"
+        className="flex items-center justify-center h-[100px] md:h-[128px]"
         style={{
           background: 'linear-gradient(155deg, #F5ECE1 0%, #EAD9C6 100%)',
           boxShadow: 'inset 0 -1px 0 rgba(184,112,64,0.12)',
         }}
       >
-        <div className="w-[48px] h-[48px] md:w-[60px] md:h-[60px]" style={{ filter: 'drop-shadow(0 2px 4px rgba(139,82,48,0.18))' }}>
+        <div className="w-[64px] h-[64px] md:w-[80px] md:h-[80px]" style={{ filter: 'drop-shadow(0 3px 6px rgba(139,82,48,0.22))' }}>
           {icons[item.icon]}
         </div>
       </div>
