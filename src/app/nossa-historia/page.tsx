@@ -151,7 +151,7 @@ export default function NossaHistoriaPage() {
         {/* Flávia */}
         <div>
           <div className="relative w-36 h-36 rounded-full mx-auto mb-6 overflow-hidden" style={{ boxShadow: '0 0 0 3px #D0C2B0' }}>
-            <Image src="/images/flavia-noiva.png" alt="Flávia" fill className="object-cover object-top" />
+            <Image src="/images/flavia-noiva.jpeg" alt="Flávia" fill className="object-cover object-top" />
           </div>
           <h3 className="font-serif italic text-3xl font-light text-center mb-1" style={{ color: '#1E1208' }}>Flávia</h3>
           <p className="eyebrow text-center mb-8">24 anos</p>
