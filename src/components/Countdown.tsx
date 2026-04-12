@@ -28,13 +28,13 @@ function TimeUnit({ value, label }: { value: number | string; label: string }) {
     <div className="flex flex-col items-center">
       <span
         className="font-serif font-light text-white tabular-nums"
-        style={{ fontSize: 'clamp(3rem, 9vw, 5.5rem)', lineHeight: 1 }}
+        style={{ fontSize: 'clamp(2rem, 7vw, 5.5rem)', lineHeight: 1 }}
       >
         {display}
       </span>
       <span
-        className="font-sans uppercase font-bold text-white/40 mt-2.5"
-        style={{ fontSize: '0.6rem', letterSpacing: '0.35em' }}
+        className="font-sans uppercase font-bold text-white/40 mt-2 tracking-[0.1em] md:tracking-[0.35em]"
+        style={{ fontSize: '0.6rem' }}
       >
         {label}
       </span>
@@ -46,7 +46,7 @@ function Colon() {
   return (
     <span
       className="font-serif font-light text-white/20 self-start"
-      style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)', lineHeight: 1, marginTop: '0.1em' }}
+      style={{ fontSize: 'clamp(1.25rem, 4.5vw, 3.5rem)', lineHeight: 1, marginTop: '0.1em' }}
     >
       :
     </span>
@@ -65,7 +65,7 @@ export default function Countdown() {
   const t = timeLeft
 
   return (
-    <div className="flex items-end justify-center gap-6 md:gap-10">
+    <div className="flex items-end justify-center gap-2 md:gap-10">
       <TimeUnit value={t ? t.dias     : '--'} label="Dias"     />
       <Colon />
       <TimeUnit value={t ? t.horas    : '--'} label="Horas"    />

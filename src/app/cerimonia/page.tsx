@@ -29,6 +29,9 @@ export default function CerimoniaPage() {
             <span className="eyebrow" style={{ color: '#B87040' }}>Domingo</span>
             <div className="h-px w-8" style={{ backgroundColor: '#D0C2B0' }} />
           </div>
+          <p className="font-serif font-light italic mt-3" style={{ fontSize: '1.5rem', color: '#B87040' }}>
+            10h30
+          </p>
         </div>
 
         <div className="w-full h-px mb-12" style={{ backgroundColor: '#D0C2B0' }} />
@@ -56,6 +59,7 @@ export default function CerimoniaPage() {
         {/* Informações */}
         <div className="space-y-8">
           {[
+            { label: 'Horário',             text: '10h30 — início da cerimônia' },
             { label: 'Cerimônia religiosa', text: 'Realizada no local — traje passeio completo' },
             { label: 'Recepção',            text: 'Logo após a cerimônia, no mesmo local' },
             { label: 'Confirmação de presença', text: 'Até 13 de abril de 2026' },
