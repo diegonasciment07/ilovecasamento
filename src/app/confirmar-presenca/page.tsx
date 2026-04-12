@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import WheatOrnament from '@/components/WheatOrnament'
 
@@ -49,17 +50,88 @@ export default function ConfirmarPresencaPage() {
     setSubmitted(true)
   }
 
-  if (submitted) {
+  if (submitted && form.presenca === 'sim') {
+    return (
+      <div className="min-h-screen flex flex-col">
+
+        {/* Bloco principal — dark */}
+        <div
+          className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center"
+          style={{ backgroundColor: '#120A02' }}
+        >
+          {/* Ícone check */}
+          <div
+            className="w-16 h-16 rounded-full flex items-center justify-center mb-8"
+            style={{ border: '1.5px solid rgba(212,175,122,0.5)' }}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4AF7A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+
+          <p className="eyebrow-light mb-5 block">17 de maio de 2026</p>
+
+          <h1
+            className="font-serif italic font-light text-white mb-4"
+            style={{ fontSize: 'clamp(2rem, 7vw, 3.25rem)', lineHeight: 1.1 }}
+          >
+            Parabéns,<br />
+            <span style={{ color: '#D4AF7A' }}>{form.nome}!</span>
+          </h1>
+
+          <p className="font-serif italic font-light mb-10" style={{ fontSize: '1.15rem', color: 'rgba(255,255,255,0.65)', lineHeight: 1.7 }}>
+            A sua presença foi confirmada.
+          </p>
+
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <div className="h-px w-10" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
+            <WheatOrnament size="md" color="#D4AF7A" />
+            <div className="h-px w-10" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }} />
+          </div>
+
+          <p className="font-serif italic font-light" style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.45)' }}>
+            Mal podemos esperar para celebrar com você!
+          </p>
+        </div>
+
+        {/* Bloco presente — cream */}
+        <div
+          className="flex flex-col items-center px-6 py-16 text-center"
+          style={{ backgroundColor: '#EDE4D8', borderTop: '1px solid #D0C2B0' }}
+        >
+          <p className="eyebrow mb-4 block">Um gesto de carinho</p>
+          <h2
+            className="font-serif italic font-light mb-4"
+            style={{ fontSize: 'clamp(1.6rem, 5vw, 2.25rem)', color: '#1E1208', lineHeight: 1.15 }}
+          >
+            Aproveite para presentear<br />os noivos
+          </h2>
+          <div className="w-8 h-0.5 mx-auto mb-6" style={{ backgroundColor: '#B87040' }} />
+          <p className="body-text-sm text-center mb-10 max-w-xs mx-auto">
+            Cada presente, grande ou pequeno, é recebido com muito amor e gratidão.
+          </p>
+          <Link href="/lista-presentes" className="btn-primary">
+            Ver lista de presentes
+          </Link>
+
+          <p className="font-serif italic mt-12" style={{ fontSize: '1.1rem', color: '#B87040' }}>
+            Com amor, Rafael &amp; Flávia
+          </p>
+        </div>
+
+      </div>
+    )
+  }
+
+  if (submitted && form.presenca === 'nao') {
     return (
       <div className="min-h-[75vh] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-8 h-0.5 mx-auto mb-10" style={{ backgroundColor: '#B87040' }} />
         <h2 className="font-serif italic font-light mb-5" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', color: '#1E1208' }}>
-          {form.presenca === 'sim' ? 'Até breve!' : 'Obrigado!'}
+          Obrigado!
         </h2>
         <p className="body-text max-w-sm mx-auto">
-          {form.presenca === 'sim'
-            ? `${form.nome}, sua presença foi confirmada. Mal podemos esperar para celebrar com você!`
-            : `${form.nome}, lamentamos que não possa estar presente. Sua resposta foi registrada com carinho.`}
+          {form.nome}, lamentamos que não possa estar presente. Sua resposta foi registrada com carinho.
         </p>
         <p className="font-serif italic text-xl mt-10" style={{ color: '#B87040' }}>
           Com amor, Rafael &amp; Flávia
