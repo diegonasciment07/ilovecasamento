@@ -9,7 +9,6 @@ const pagesLinks = [
   { href: '/',                  label: 'Página inicial'       },
   { href: '/nossa-historia',    label: 'Nossa história'       },
   { href: '/mensagens',         label: 'Mensagens aos noivos' },
-  { href: '/padrinhos',         label: 'Padrinhos'            },
   { href: '/cerimonia',         label: 'Cerimônia'            },
   { href: '/dicas-vestimentas', label: 'Dicas de vestimentas' },
 ]
