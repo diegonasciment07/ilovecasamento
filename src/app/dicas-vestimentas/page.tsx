@@ -49,27 +49,6 @@ export default function DicasVestimentasPage() {
               className="object-cover"
             />
           </div>
-
-          {/* Paleta de cores das madrinhas */}
-          <div className="mt-10">
-            <p className="eyebrow block text-center mb-2" style={{ color: '#B87040' }}>Paleta de cores</p>
-            <p className="body-text-sm text-center mb-6">
-              Escolha um vestido longo em uma das tonalidades abaixo
-            </p>
-            <div className="flex justify-center gap-5">
-              {paletaMadrinhas.map((cor) => (
-                <div key={cor.nome} className="flex flex-col items-center gap-2.5">
-                  <div
-                    className="w-12 h-12"
-                    style={{ backgroundColor: cor.hex, border: '1px solid #D0C2B0' }}
-                  />
-                  <p className="font-sans text-[11px] font-light text-center leading-tight" style={{ color: '#4A3422' }}>
-                    {cor.nome}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* Convidados */}
@@ -89,6 +68,25 @@ export default function DicasVestimentasPage() {
             <p className="body-text-sm text-center mb-6" style={{ color: '#6B5240' }}>Reservadas exclusivamente aos padrinhos e madrinhas</p>
             <div className="flex justify-center gap-5">
               {paletaPadrinhos.map((cor) => (
+                <div key={cor.nome} className="flex flex-col items-center gap-2.5">
+                  <div
+                    className="w-12 h-12"
+                    style={{ backgroundColor: cor.hex, border: '1px solid #D0C2B0' }}
+                  />
+                  <p className="font-sans text-[11px] font-light text-center leading-tight" style={{ color: '#4A3422' }}>
+                    {cor.nome}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Paleta de cores das madrinhas */}
+          <div className="mb-10">
+            <p className="eyebrow block text-center mb-2" style={{ color: '#B87040' }}>Paleta das madrinhas</p>
+            <p className="body-text-sm text-center mb-6" style={{ color: '#6B5240' }}>Reservada exclusivamente às madrinhas</p>
+            <div className="flex justify-center gap-5">
+              {paletaMadrinhas.map((cor) => (
                 <div key={cor.nome} className="flex flex-col items-center gap-2.5">
                   <div
                     className="w-12 h-12"
