@@ -19,6 +19,7 @@ export interface RfRsvp {
   presenca: 'sim' | 'nao'
   adultos: number
   criancas: number
+  idades_criancas?: string
   email?: string
   telefone?: string
   mensagem?: string

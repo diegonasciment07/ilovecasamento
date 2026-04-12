@@ -24,6 +24,10 @@ create policy "rf_mensagens_insert"
   with check (true);
 
 
+-- ── Coluna idades_criancas em rf_rsvp ────────────────────
+alter table rf_rsvp add column if not exists idades_criancas text;
+
+
 -- ── Tabela: rf_presentes ─────────────────────────────────
 create table if not exists rf_presentes (
   id             uuid        primary key default gen_random_uuid(),

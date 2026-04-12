@@ -10,6 +10,7 @@ interface FormData {
   presenca: 'sim' | 'nao' | ''
   adultos: number
   criancas: number
+  idades_criancas: string[]
   email: string
   telefone: string
   mensagem: string
@@ -17,7 +18,7 @@ interface FormData {
 
 export default function ConfirmarPresencaPage() {
   const [form, setForm] = useState<FormData>({
-    nome: '', presenca: '', adultos: 1, criancas: 0, email: '', telefone: '', mensagem: '',
+    nome: '', presenca: '', adultos: 1, criancas: 0, idades_criancas: [], email: '', telefone: '', mensagem: '',
   })
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
@@ -31,13 +32,14 @@ export default function ConfirmarPresencaPage() {
     setError(null)
 
     const { error } = await supabase.from('rf_rsvp').insert({
-      nome:      form.nome,
-      presenca:  form.presenca,
-      adultos:   form.adultos,
-      criancas:  form.criancas,
-      email:     form.email   || null,
-      telefone:  form.telefone || null,
-      mensagem:  form.mensagem || null,
+      nome:             form.nome,
+      presenca:         form.presenca,
+      adultos:          form.adultos,
+      criancas:         form.criancas,
+      idades_criancas:  form.idades_criancas.length ? form.idades_criancas.join(', ') : null,
+      email:            form.email    || null,
+      telefone:         form.telefone || null,
+      mensagem:         form.mensagem || null,
     })
 
     if (error) {
@@ -195,24 +197,58 @@ export default function ConfirmarPresencaPage() {
           </div>
 
           {form.presenca === 'sim' && (
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: 'Total de adultos', key: 'adultos' as const, options: [1,2,3,4,5] },
-                { label: 'Crianças',         key: 'criancas' as const, options: [0,1,2,3,4] },
-              ].map((field) => (
-                <div key={field.key}>
-                  <label className="form-label">{field.label}</label>
-                  <select
-                    value={form[field.key]}
-                    onChange={(e) => setForm({ ...form, [field.key]: Number(e.target.value) })}
-                    className="form-input"
-                    style={{ backgroundColor: '#EDE4D8' }}
-                  >
-                    {field.options.map((n) => <option key={n} value={n}>{n}</option>)}
-                  </select>
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { label: 'Total de adultos', key: 'adultos' as const, options: [1,2,3,4,5] },
+                  { label: 'Crianças',         key: 'criancas' as const, options: [0,1,2,3,4] },
+                ].map((field) => (
+                  <div key={field.key}>
+                    <label className="form-label">{field.label}</label>
+                    <select
+                      value={form[field.key]}
+                      onChange={(e) => {
+                        const val = Number(e.target.value)
+                        const update: Partial<FormData> = { [field.key]: val }
+                        if (field.key === 'criancas') update.idades_criancas = Array(val).fill('')
+                        setForm({ ...form, ...update })
+                      }}
+                      className="form-input"
+                      style={{ backgroundColor: '#EDE4D8' }}
+                    >
+                      {field.options.map((n) => <option key={n} value={n}>{n}</option>)}
+                    </select>
+                  </div>
+                ))}
+              </div>
+
+              {form.criancas > 0 && (
+                <div>
+                  <label className="form-label">Idade das crianças</label>
+                  <div className="grid grid-cols-2 gap-3 mt-1">
+                    {Array.from({ length: form.criancas }).map((_, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <span className="font-sans text-xs font-light shrink-0" style={{ color: '#6B4F3A' }}>
+                          Criança {i + 1}
+                        </span>
+                        <input
+                          type="number" min={0} max={17}
+                          value={form.idades_criancas[i] ?? ''}
+                          onChange={(e) => {
+                            const idades = [...form.idades_criancas]
+                            idades[i] = e.target.value
+                            setForm({ ...form, idades_criancas: idades })
+                          }}
+                          placeholder="anos"
+                          className="form-input"
+                          style={{ padding: '0.5rem 0.75rem' }}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
 
           <div>
