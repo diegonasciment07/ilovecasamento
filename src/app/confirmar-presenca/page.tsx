@@ -108,7 +108,7 @@ export default function ConfirmarPresencaPage() {
           </h2>
           <div className="w-8 h-0.5 mx-auto mb-6" style={{ backgroundColor: '#B87040' }} />
           <p className="body-text-sm text-center mb-10 max-w-xs mx-auto">
-            Cada presente, grande ou pequeno, é recebido com muito amor e gratidão.
+            Cada presente é recebido com muito amor e gratidão.
           </p>
           <Link href="/lista-presentes" className="btn-primary">
             Ver lista de presentes
