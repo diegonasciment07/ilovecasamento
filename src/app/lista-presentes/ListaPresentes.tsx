@@ -1,9 +1,11 @@
 'use client'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import type { ReactElement } from 'react'
 import PageHeader from '@/components/PageHeader'
+import { supabase } from '@/lib/supabase'
 
 const PIX_KEY = '47999110047'
+const MAX_COTAS = 10
 
 // ─── SVG Icons ─────────────────────────────────────────────────────────────
 const G = '#B87040'
@@ -349,8 +351,14 @@ const categorias: Categoria[] = [
 ]
 
 // ─── PIX Bottom Sheet ────────────────────────────────────────────────────────
-function PixSheet({ presente, onClose }: { presente: Presente; onClose: () => void }) {
+function PixSheet({ presente, onClose, onConfirmar }: {
+  presente: Presente
+  onClose: () => void
+  onConfirmar: () => void
+}) {
   const [copied, setCopied] = useState(false)
+  const [confirmado, setConfirmado] = useState(false)
+  const [confirmando, setConfirmando] = useState(false)
 
   const handleCopy = useCallback(async () => {
     try {
@@ -366,6 +374,15 @@ function PixSheet({ presente, onClose }: { presente: Presente; onClose: () => vo
     setCopied(true)
     setTimeout(() => setCopied(false), 2500)
   }, [])
+
+  async function handleConfirmar() {
+    setConfirmando(true)
+    await supabase.from('rf_presentes').insert({ presente_nome: presente.nome })
+    setConfirmando(false)
+    setConfirmado(true)
+    onConfirmar()
+    setTimeout(() => onClose(), 1800)
+  }
 
   return (
     <>
@@ -443,36 +460,70 @@ function PixSheet({ presente, onClose }: { presente: Presente; onClose: () => vo
           Após o PIX, nos avise pelo WhatsApp para não esquecer quem presenteou! 🤍
         </p>
 
-        {/* close */}
-        <button
-          onClick={onClose}
-          className="w-full font-sans font-bold uppercase py-3.5 transition-opacity hover:opacity-80"
-          style={{
-            fontSize: '0.6rem',
-            letterSpacing: '0.3em',
-            color: '#B87040',
-            border: '1px solid #B87040',
-            backgroundColor: 'transparent',
-            cursor: 'pointer',
-          }}
-        >
-          Fechar
-        </button>
+        {/* confirmar presente */}
+        {confirmado ? (
+          <div className="w-full py-3.5 text-center font-sans font-bold uppercase"
+            style={{ fontSize: '0.6rem', letterSpacing: '0.3em', backgroundColor: '#2E7D32', color: '#FAF7F2' }}>
+            ✓ Presente confirmado!
+          </div>
+        ) : (
+          <>
+            <button
+              onClick={handleConfirmar}
+              disabled={confirmando}
+              className="w-full font-sans font-bold uppercase py-3.5 mb-3 transition-opacity hover:opacity-80 disabled:opacity-50"
+              style={{
+                fontSize: '0.6rem',
+                letterSpacing: '0.3em',
+                color: '#FAF7F2',
+                backgroundColor: '#B87040',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {confirmando ? 'Registrando...' : 'Já fiz o PIX ✓'}
+            </button>
+            <button
+              onClick={onClose}
+              className="w-full font-sans font-bold uppercase py-3 transition-opacity hover:opacity-60"
+              style={{
+                fontSize: '0.6rem',
+                letterSpacing: '0.3em',
+                color: '#9A7E6A',
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              Fechar
+            </button>
+          </>
+        )}
       </div>
     </>
   )
 }
 
 // ─── Card ────────────────────────────────────────────────────────────────────
-function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presente) => void }) {
+function PresenteCard({ item, cotas, onSelect }: {
+  item: Presente
+  cotas: number
+  onSelect: (p: Presente) => void
+}) {
+  const esgotado = cotas >= MAX_COTAS
+
   return (
     <div
       className="flex flex-col overflow-hidden"
-      style={{ border: '1px solid #D0C2B0', backgroundColor: '#FAF7F2' }}
+      style={{
+        border: '1px solid #D0C2B0',
+        backgroundColor: '#FAF7F2',
+        opacity: esgotado ? 0.75 : 1,
+      }}
     >
       {/* icon */}
       <div
-        className="flex items-center justify-center h-[100px] md:h-[128px]"
+        className="flex items-center justify-center h-[100px] md:h-[128px] relative"
         style={{
           background: 'linear-gradient(155deg, #F5ECE1 0%, #EAD9C6 100%)',
           boxShadow: 'inset 0 -1px 0 rgba(184,112,64,0.12)',
@@ -481,6 +532,13 @@ function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presen
         <div className="w-[64px] h-[64px] md:w-[80px] md:h-[80px]" style={{ filter: 'drop-shadow(0 3px 6px rgba(139,82,48,0.22))' }}>
           {icons[item.icon]}
         </div>
+        {esgotado && (
+          <div className="absolute inset-0 flex items-center justify-center"
+            style={{ backgroundColor: 'rgba(18,10,2,0.45)' }}>
+            <span className="font-sans font-bold uppercase text-white"
+              style={{ fontSize: '0.6rem', letterSpacing: '0.25em' }}>Esgotado</span>
+          </div>
+        )}
       </div>
 
       {/* text */}
@@ -491,25 +549,31 @@ function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presen
         <p className="font-sans font-light leading-tight" style={{ fontSize: '0.67rem', color: '#8B6B50' }}>
           {item.nota}
         </p>
-        <p className="font-sans font-bold" style={{ fontSize: '0.8rem', color: '#B87040', marginTop: '0.35rem' }}>
-          {formatBRL(item.valor)}
-        </p>
+        <div className="flex items-center justify-between mt-1">
+          <p className="font-sans font-bold" style={{ fontSize: '0.8rem', color: '#B87040' }}>
+            {formatBRL(item.valor)}
+          </p>
+          <p className="font-sans font-light" style={{ fontSize: '0.6rem', color: cotas > 0 ? '#B87040' : '#C0B0A0' }}>
+            {cotas}/{MAX_COTAS}
+          </p>
+        </div>
 
         {/* cta */}
         <button
-          onClick={() => onSelect(item)}
-          className="mt-auto pt-2.5 w-full font-sans font-bold uppercase text-center transition-opacity active:opacity-70"
+          onClick={() => !esgotado && onSelect(item)}
+          disabled={esgotado}
+          className="mt-auto pt-2.5 w-full font-sans font-bold uppercase text-center transition-opacity active:opacity-70 disabled:cursor-not-allowed disabled:opacity-40"
           style={{
             fontSize: '0.55rem',
             letterSpacing: '0.2em',
             color: '#FAF7F2',
-            backgroundColor: '#B87040',
+            backgroundColor: esgotado ? '#9A7E6A' : '#B87040',
             padding: '7px 0',
             border: 'none',
-            cursor: 'pointer',
+            cursor: esgotado ? 'not-allowed' : 'pointer',
           }}
         >
-          Presentear
+          {esgotado ? 'Esgotado' : 'Presentear'}
         </button>
       </div>
     </div>
@@ -519,6 +583,25 @@ function PresenteCard({ item, onSelect }: { item: Presente; onSelect: (p: Presen
 // ─── Page ────────────────────────────────────────────────────────────────────
 export default function ListaPresentes() {
   const [selecionado, setSelecionado] = useState<Presente | null>(null)
+  const [cotas, setCotas] = useState<Record<string, number>>({})
+
+  useEffect(() => {
+    async function fetchCotas() {
+      const { data } = await supabase.from('rf_presentes').select('presente_nome')
+      if (!data) return
+      const counts: Record<string, number> = {}
+      data.forEach(({ presente_nome }) => {
+        counts[presente_nome] = (counts[presente_nome] || 0) + 1
+      })
+      setCotas(counts)
+    }
+    fetchCotas()
+  }, [])
+
+  function handleConfirmar() {
+    if (!selecionado) return
+    setCotas(prev => ({ ...prev, [selecionado.nome]: (prev[selecionado.nome] || 0) + 1 }))
+  }
 
   return (
     <div className="min-h-screen">
@@ -535,7 +618,7 @@ export default function ListaPresentes() {
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
               {cat.itens.map((item) => (
-                <PresenteCard key={item.nome} item={item} onSelect={setSelecionado} />
+                <PresenteCard key={item.nome} item={item} cotas={cotas[item.nome] || 0} onSelect={setSelecionado} />
               ))}
             </div>
           </div>
@@ -578,7 +661,7 @@ export default function ListaPresentes() {
 
       {/* PIX sheet */}
       {selecionado && (
-        <PixSheet presente={selecionado} onClose={() => setSelecionado(null)} />
+        <PixSheet presente={selecionado} onClose={() => setSelecionado(null)} onConfirmar={handleConfirmar} />
       )}
     </div>
   )

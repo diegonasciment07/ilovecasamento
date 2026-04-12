@@ -24,6 +24,26 @@ create policy "rf_mensagens_insert"
   with check (true);
 
 
+-- ── Tabela: rf_presentes ─────────────────────────────────
+create table if not exists rf_presentes (
+  id             uuid        primary key default gen_random_uuid(),
+  presente_nome  text        not null,
+  created_at     timestamptz not null default now()
+);
+
+alter table rf_presentes enable row level security;
+
+-- Leitura pública (contar cotas)
+create policy "rf_presentes_select"
+  on rf_presentes for select
+  using (true);
+
+-- Inserção pública (registrar presente)
+create policy "rf_presentes_insert"
+  on rf_presentes for insert
+  with check (true);
+
+
 -- ── Tabela: rf_rsvp ──────────────────────────────────────
 create table if not exists rf_rsvp (
   id         uuid        primary key default gen_random_uuid(),
