@@ -77,6 +77,7 @@ export default function GestaoPage() {
   const [loading, setLoading] = useState(false)
   const [modalRsvp, setModalRsvp] = useState<RfRsvp | null>(null)
   const [modalMsg, setModalMsg] = useState<RfMensagem | null>(null)
+  const [filtroPresenca, setFiltroPresenca] = useState<'todos' | 'sim' | 'nao'>('todos')
 
   // Restaura sessão existente ao montar
   useEffect(() => {
@@ -123,6 +124,11 @@ export default function GestaoPage() {
   const naoVirao      = rsvps.filter(r => r.presenca === 'nao')
   const totalAdultos  = confirmados.reduce((s, r) => s + (r.adultos  || 0), 0)
   const totalCriancas = confirmados.reduce((s, r) => s + (r.criancas || 0), 0)
+
+  const rsvpsFiltrados = filtroPresenca === 'todos' ? rsvps
+    : rsvps.filter(r => r.presenca === filtroPresenca)
+  const totalAdultosFiltro  = rsvpsFiltrados.reduce((s, r) => s + (r.adultos  || 0), 0)
+  const totalCriancasFiltro = rsvpsFiltrados.reduce((s, r) => s + (r.criancas || 0), 0)
 
   const presentesSummary = Object.entries(
     presentesNomes.reduce((acc, n) => { acc[n] = (acc[n] || 0) + 1; return acc }, {} as Record<string, number>)
@@ -231,30 +237,61 @@ export default function GestaoPage() {
 
           // ── PRESENÇAS ──────────────────────────────────────────────────────
           tab === 'presencas' ? (
-            rsvps.length === 0
-              ? <p className="font-sans font-light text-sm text-center py-10" style={{ color: '#6B4F3A' }}>Nenhuma resposta ainda.</p>
-              : <div style={{ border: '1px solid #D0C2B0' }}>
-                  {/* Header */}
-                  <div className="grid gap-3 px-4 py-2.5" style={{ gridTemplateColumns: '1fr 80px 60px 60px 110px', backgroundColor: '#EDE4D8', borderBottom: '1px solid #D0C2B0' }}>
-                    {['Nome', 'Presença', 'Adultos', 'Crianças', 'Data'].map(h => (
-                      <span key={h} className="font-sans font-bold uppercase" style={{ fontSize: '0.55rem', letterSpacing: '0.18em', color: '#B87040' }}>{h}</span>
-                    ))}
-                  </div>
-                  {rsvps.map((r, i) => (
-                    <div key={r.id ?? i}
-                      onClick={() => setModalRsvp(r)}
-                      className="grid gap-3 px-4 py-3 cursor-pointer transition-colors hover:bg-[#F5EFE8]"
-                      style={{ gridTemplateColumns: '1fr 80px 60px 60px 110px', borderBottom: i < rsvps.length - 1 ? '1px solid #EDE4D8' : 'none' }}>
-                      <span className="font-sans text-sm font-light truncate" style={{ color: '#1E1208' }}>{r.nome}</span>
-                      <span className="font-sans font-bold uppercase" style={{ fontSize: '0.6rem', color: r.presenca === 'sim' ? '#2E7D32' : '#B87040' }}>
-                        {r.presenca === 'sim' ? '✓ Sim' : '✗ Não'}
-                      </span>
-                      <span className="font-sans text-sm font-light text-center" style={{ color: '#4A3422' }}>{r.adultos ?? '—'}</span>
-                      <span className="font-sans text-sm font-light text-center" style={{ color: '#4A3422' }}>{r.criancas ?? '—'}</span>
-                      <span className="font-sans text-xs font-light" style={{ color: '#9A7E6A' }}>{r.created_at ? formatDate(r.created_at) : '—'}</span>
+            <>
+              {/* Filtros */}
+              <div className="flex items-center gap-2 mb-4">
+                <span className="font-sans font-bold uppercase" style={{ fontSize: '0.55rem', letterSpacing: '0.18em', color: '#9A7E6A' }}>Filtrar:</span>
+                {([['todos', 'Todos', rsvps.length], ['sim', 'Confirmados', confirmados.length], ['nao', 'Não vão', naoVirao.length]] as const).map(([val, label, count]) => (
+                  <button key={val} onClick={() => setFiltroPresenca(val)}
+                    className="font-sans font-bold uppercase px-3 py-1.5 transition-colors"
+                    style={{
+                      fontSize: '0.55rem', letterSpacing: '0.18em', cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: filtroPresenca === val ? '#B87040' : '#D0C2B0',
+                      backgroundColor: filtroPresenca === val ? '#B87040' : 'transparent',
+                      color: filtroPresenca === val ? 'white' : '#6B4F3A',
+                    }}>
+                    {label} ({count})
+                  </button>
+                ))}
+              </div>
+
+              {rsvpsFiltrados.length === 0
+                ? <p className="font-sans font-light text-sm text-center py-10" style={{ color: '#6B4F3A' }}>Nenhuma resposta ainda.</p>
+                : <div style={{ border: '1px solid #D0C2B0' }}>
+                    {/* Header */}
+                    <div className="grid gap-3 px-4 py-2.5" style={{ gridTemplateColumns: '1fr 80px 60px 60px 110px', backgroundColor: '#EDE4D8', borderBottom: '1px solid #D0C2B0' }}>
+                      {['Nome', 'Presença', 'Adultos', 'Crianças', 'Data'].map(h => (
+                        <span key={h} className="font-sans font-bold uppercase" style={{ fontSize: '0.55rem', letterSpacing: '0.18em', color: '#B87040' }}>{h}</span>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                    {rsvpsFiltrados.map((r, i) => (
+                      <div key={r.id ?? i}
+                        onClick={() => setModalRsvp(r)}
+                        className="grid gap-3 px-4 py-3 cursor-pointer transition-colors hover:bg-[#F5EFE8]"
+                        style={{ gridTemplateColumns: '1fr 80px 60px 60px 110px', borderBottom: '1px solid #EDE4D8' }}>
+                        <span className="font-sans text-sm font-light truncate" style={{ color: '#1E1208' }}>{r.nome}</span>
+                        <span className="font-sans font-bold uppercase" style={{ fontSize: '0.6rem', color: r.presenca === 'sim' ? '#2E7D32' : '#B87040' }}>
+                          {r.presenca === 'sim' ? '✓ Sim' : '✗ Não'}
+                        </span>
+                        <span className="font-sans text-sm font-light text-center" style={{ color: '#4A3422' }}>{r.adultos ?? '—'}</span>
+                        <span className="font-sans text-sm font-light text-center" style={{ color: '#4A3422' }}>{r.criancas ?? '—'}</span>
+                        <span className="font-sans text-xs font-light" style={{ color: '#9A7E6A' }}>{r.created_at ? formatDate(r.created_at) : '—'}</span>
+                      </div>
+                    ))}
+                    {/* Total */}
+                    <div className="grid gap-3 px-4 py-3" style={{ gridTemplateColumns: '1fr 80px 60px 60px 110px', borderTop: '2px solid #B87040', backgroundColor: '#EDE4D8' }}>
+                      <span className="font-sans font-bold uppercase" style={{ fontSize: '0.55rem', letterSpacing: '0.18em', color: '#B87040' }}>
+                        Total ({rsvpsFiltrados.length})
+                      </span>
+                      <span />
+                      <span className="font-sans font-bold text-sm text-center" style={{ color: '#1E1208' }}>{totalAdultosFiltro}</span>
+                      <span className="font-sans font-bold text-sm text-center" style={{ color: '#1E1208' }}>{totalCriancasFiltro}</span>
+                      <span />
+                    </div>
+                  </div>
+              }
+            </>
 
           // ── MENSAGENS ──────────────────────────────────────────────────────
           ) : tab === 'mensagens' ? (

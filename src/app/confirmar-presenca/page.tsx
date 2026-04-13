@@ -201,7 +201,7 @@ export default function ConfirmarPresencaPage() {
               <div className="grid grid-cols-2 gap-4">
                 {[
                   { label: 'Total de adultos', key: 'adultos' as const, options: [1,2,3,4,5] },
-                  { label: 'Crianças',         key: 'criancas' as const, options: [0,1,2,3,4] },
+                  { label: 'Crianças (De 0 a 5 anos)', key: 'criancas' as const, options: [0,1,2,3,4] },
                 ].map((field) => (
                   <div key={field.key}>
                     <label className="form-label">{field.label}</label>
