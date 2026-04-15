@@ -25,7 +25,6 @@ create policy "rf_mensagens_insert"
 
 
 -- ── Coluna idades_criancas em rf_rsvp ────────────────────
-alter table rf_rsvp add column if not exists idades_criancas text;
 
 
 -- ── Tabela: rf_presentes ─────────────────────────────────
@@ -55,11 +54,14 @@ create table if not exists rf_rsvp (
   presenca   text        not null check (presenca in ('sim', 'nao')),
   adultos    integer     not null default 1,
   criancas   integer     not null default 0,
+  idades_criancas text,
   email      text,
   telefone   text,
   mensagem   text,
   created_at timestamptz not null default now()
 );
+
+alter table rf_rsvp add column if not exists idades_criancas text;
 
 alter table rf_rsvp enable row level security;
 

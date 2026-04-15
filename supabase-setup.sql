@@ -28,6 +28,7 @@ create table if not exists rf_rsvp (
   presenca    text        not null check (presenca in ('sim', 'nao')),
   adultos     int         default 1,
   criancas    int         default 0,
+  idades_criancas text,
   email       text,
   telefone    text,
   mensagem    text,

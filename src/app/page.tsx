@@ -214,7 +214,7 @@ export default function HomePage() {
             <div className="h-px w-10 bg-white/20" />
           </div>
           <p className="body-text-light mb-10 max-w-sm mx-auto">
-            Confirme sua presença até <strong className="text-white font-normal">13 de abril</strong> e
+            Confirme sua presença até <strong className="text-white font-normal">15 de abril</strong> e
             ajude-nos a preparar tudo com carinho.
           </p>
           <Link href="/confirmar-presenca" className="btn-ghost">

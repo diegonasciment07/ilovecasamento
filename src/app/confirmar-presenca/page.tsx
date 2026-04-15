@@ -16,6 +16,29 @@ interface FormData {
   mensagem: string
 }
 
+interface RsvpPayload {
+  nome: string
+  presenca: 'sim' | 'nao'
+  adultos: number
+  criancas: number
+  email: string | null
+  telefone: string | null
+  mensagem: string | null
+  idades_criancas?: string | null
+}
+
+function isMissingChildAgesColumn(error: unknown) {
+  if (!error || typeof error !== 'object') return false
+
+  const details = error as { code?: string; message?: string }
+  const message = details.message ?? ''
+
+  return (
+    details.code === 'PGRST204' &&
+    message.toLowerCase().includes('idades_criancas')
+  )
+}
+
 export default function ConfirmarPresencaPage() {
   const [form, setForm] = useState<FormData>({
     nome: '', presenca: '', adultos: 1, criancas: 0, idades_criancas: [], email: '', telefone: '', mensagem: '',
@@ -31,18 +54,33 @@ export default function ConfirmarPresencaPage() {
     setSending(true)
     setError(null)
 
-    const { error } = await supabase.from('rf_rsvp').insert({
-      nome:             form.nome,
-      presenca:         form.presenca,
-      adultos:          form.adultos,
-      criancas:         form.criancas,
-      idades_criancas:  form.idades_criancas.length ? form.idades_criancas.join(', ') : null,
-      email:            form.email    || null,
-      telefone:         form.telefone || null,
-      mensagem:         form.mensagem || null,
-    })
+    const idadesCriancas = form.idades_criancas
+      .map((idade) => idade.trim())
+      .filter(Boolean)
+      .join(', ')
+
+    const rsvp: RsvpPayload = {
+      nome: form.nome.trim(),
+      presenca: form.presenca,
+      adultos: form.adultos,
+      criancas: form.criancas,
+      idades_criancas: idadesCriancas || null,
+      email: form.email.trim() || null,
+      telefone: form.telefone.trim() || null,
+      mensagem: form.mensagem.trim() || null,
+    }
+
+    let { error } = await supabase.from('rf_rsvp').insert(rsvp)
+
+    if (isMissingChildAgesColumn(error)) {
+      const rsvpSemIdades = { ...rsvp }
+      delete rsvpSemIdades.idades_criancas
+      const retry = await supabase.from('rf_rsvp').insert(rsvpSemIdades)
+      error = retry.error
+    }
 
     if (error) {
+      console.error('Erro ao registrar RSVP:', error)
       setError('Erro ao registrar sua resposta. Tente novamente.')
       setSending(false)
       return
@@ -152,7 +190,7 @@ export default function ConfirmarPresencaPage() {
           <WheatOrnament size="md" color="#B87040" />
         </div>
         <p className="body-text-sm text-center mt-5 max-w-sm mx-auto">
-          Confirme sua presença até <strong style={{ color: '#1E1208', fontWeight: 600 }}>13 de abril de 2026</strong>.
+          Confirme sua presença até <strong style={{ color: '#1E1208', fontWeight: 600 }}>15 de abril de 2026</strong>.
         </p>
       </div>
 
