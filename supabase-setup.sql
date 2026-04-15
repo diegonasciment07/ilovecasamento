@@ -37,8 +37,11 @@ create table if not exists rf_rsvp (
 
 alter table rf_rsvp enable row level security;
 
+grant insert on table public.rf_rsvp to anon, authenticated;
+grant select on table public.rf_rsvp to authenticated;
+
 create policy "publico pode inserir rsvp"
-  on rf_rsvp for insert to anon
+  on rf_rsvp for insert to anon, authenticated
   with check (true);
 
 -- Somente autenticados (admin) leem as confirmações

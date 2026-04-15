@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { supabase } from '@/lib/supabase'
+import { publicSupabase } from '@/lib/supabase'
 import WheatOrnament from '@/components/WheatOrnament'
 
 interface FormData {
@@ -70,12 +70,12 @@ export default function ConfirmarPresencaPage() {
       mensagem: form.mensagem.trim() || null,
     }
 
-    let { error } = await supabase.from('rf_rsvp').insert(rsvp)
+    let { error } = await publicSupabase.from('rf_rsvp').insert(rsvp)
 
     if (isMissingChildAgesColumn(error)) {
       const rsvpSemIdades = { ...rsvp }
       delete rsvpSemIdades.idades_criancas
-      const retry = await supabase.from('rf_rsvp').insert(rsvpSemIdades)
+      const retry = await publicSupabase.from('rf_rsvp').insert(rsvpSemIdades)
       error = retry.error
     }
 

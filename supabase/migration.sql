@@ -65,12 +65,17 @@ alter table rf_rsvp add column if not exists idades_criancas text;
 
 alter table rf_rsvp enable row level security;
 
+grant insert on table public.rf_rsvp to anon, authenticated;
+grant select on table public.rf_rsvp to authenticated;
+
 -- Inserção pública (convidado confirma presença)
 create policy "rf_rsvp_insert"
   on rf_rsvp for insert
+  to anon, authenticated
   with check (true);
 
 -- Leitura pública apenas para contagem (rodapé)
 create policy "rf_rsvp_select"
   on rf_rsvp for select
+  to authenticated
   using (true);
