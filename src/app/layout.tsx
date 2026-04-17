@@ -22,6 +22,10 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: 'Rafael & Flávia | 17.05.2026',
   description: 'Celebrando o amor de Rafael & Flávia — 17 de maio de 2026, Chácara Lagos Italy, São José dos Pinhais - PR',
+  icons: {
+    icon: '/images/casal-lago.jpeg',
+    apple: '/images/casal-lago.jpeg',
+  },
   openGraph: {
     title: 'Rafael & Flávia | 17.05.2026',
     description: 'Celebrando o amor de Rafael & Flávia',

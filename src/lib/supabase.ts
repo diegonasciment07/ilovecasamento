@@ -10,6 +10,7 @@ export const publicSupabase = createClient(supabaseUrl, supabaseKey, {
     autoRefreshToken: false,
     detectSessionInUrl: false,
     persistSession: false,
+    storageKey: 'sb-public-auth-token',
   },
 })
 
